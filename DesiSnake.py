@@ -1,6 +1,7 @@
 import pygame
 import random
 # initialization
+pygame.mixer.init()
 x = pygame.init()
 
 # init colors
@@ -14,17 +15,38 @@ blue = (2, 2, 255)
 screen_width = 600
 screen_height = 500
 font = pygame.font.SysFont("Blade", 40, italic=True, bold=True)
+font2 = pygame.font.SysFont("comicsansms", 50)
+font3 = pygame.font.SysFont("comicsansms", 28)
 
 # display
 gamewindow = pygame.display.set_mode((screen_width, screen_height))
 
 # game caption or name
-pygame.display.set_caption("DesiSnake")
-
+# pygame.display.set_caption("DesiSnake")
+# wel_img = pygame.image.load('img/snake.png')
+# wel_img= pygame.transform.scale(surface, size)
 
 # clock
 clock = pygame.time.Clock()
 pygame.display.update()
+
+
+def welcome():
+    exit_game = False
+    while not exit_game:
+        gamewindow.fill(black)
+        screen_text2("WELCOME TO SNAKES", red, 18,  180)
+        screen_text3("Press enter to play", red, 170,  245)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit_game = True
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    gameloop()
+        pygame.display.update()
+        clock.tick(60)
 
 
 def plot(gamewindow, color, snake_list, snake_size):
@@ -35,6 +57,16 @@ def plot(gamewindow, color, snake_list, snake_size):
 def screen_text(text, color, x, y):
     screen_text = font.render(text, True, color)
     gamewindow.blit(screen_text, [x, y])
+
+
+def screen_text2(text, color, x, y):
+    screen_text2 = font2.render(text, True, color)
+    gamewindow.blit(screen_text2, [x, y])
+
+
+def screen_text3(text, color, x, y):
+    screen_text3 = font3.render(text, True, color)
+    gamewindow.blit(screen_text3, [x, y])
 
 
 def gameloop():
@@ -72,7 +104,7 @@ def gameloop():
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        gameloop()
+                        welcome()
         else:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -129,7 +161,7 @@ def gameloop():
             screen_text(("High Score: " + str(highscore)), blue, 350, 10)
             pygame.draw.circle(gamewindow, red,
                                (food_x, food_y), snake_size)
-            plot(gamewindow, yellow, snake_list, snake_size)
+        plot(gamewindow, yellow, snake_list, snake_size)
         clock.tick(fps)
         pygame.display.update()
 
@@ -137,4 +169,4 @@ def gameloop():
     quit()
 
 
-gameloop()
+welcome()
