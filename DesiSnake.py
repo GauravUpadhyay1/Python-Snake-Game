@@ -45,7 +45,7 @@ def welcome():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    pygame.mixer.music.load('audio/music.mp3')
+                    pygame.mixer.music.load('audio\music.mp3')
                     pygame.mixer.music.play()
                     gameloop()
         pygame.display.update()
@@ -143,7 +143,7 @@ def gameloop():
 
             if abs(snake_x-food_x) < 7 and abs(snake_y-food_y) < 7:
                 score += 10
-                pygame.mixer.music.load('audio/quack.mp3')
+                pygame.mixer.music.load('audio\quack.mp3')
                 pygame.mixer.music.play()
                 # print(score)
                 food_x = random.randint(20, screen_width)
