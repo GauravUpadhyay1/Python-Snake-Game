@@ -23,7 +23,7 @@ gamewindow = pygame.display.set_mode((screen_width, screen_height))
 
 # game caption or name
 pygame.display.set_caption("DesiSnake")
-wel_img = pygame.image.load('img/snake.png')
+wel_img = pygame.image.load('img/snake3.jpg')
 wel_img = pygame.transform.scale(wel_img, (200, 200)).convert_alpha()
 
 # clock
@@ -32,12 +32,14 @@ pygame.display.update()
 
 
 def welcome():
+    pygame.mixer.music.load('audio\music.mp3')
+    pygame.mixer.music.play()
     exit_game = False
     while not exit_game:
         gamewindow.fill(black)
-        gamewindow.blit(wel_img, (200, 200))
-        screen_text2("WELCOME TO SNAKES", red, 18,  180)
-        screen_text3("Press enter to play", red, 170,  245)
+        gamewindow.blit(wel_img, (200, 50))
+        screen_text2("WELCOME TO SNAKES", red, 18,  240)
+        screen_text3("Press enter to play", red, 170,  295)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,8 +47,7 @@ def welcome():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    pygame.mixer.music.load('audio\music.mp3')
-                    pygame.mixer.music.play()
+                    pygame.mixer.music.stop()
                     gameloop()
         pygame.display.update()
         clock.tick(60)
@@ -158,9 +159,13 @@ def gameloop():
             if (snake_x < 0) or (snake_x > screen_width) or (snake_y < 0) or (snake_y > screen_height):
                 # pygame.mixer.music.load('audio\hiss.mp3')
                 # pygame.mixer.music.play()
+                pygame.mixer.music.load('audio/hiss.mp3')
+                pygame.mixer.music.play()
                 game_over = True
 
             if head in snake_list[0:-1]:
+                pygame.mixer.music.load('audio/hiss.mp3')
+                pygame.mixer.music.play()
                 game_over = True
 
             gamewindow.fill(black)
