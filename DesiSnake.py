@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 # initialization
 x = pygame.init()
 pygame.mixer.init()
@@ -88,6 +89,10 @@ def gameloop():
     snake_list = []
     snake_length = 1
     score = 0
+
+    if (not os.path.exists("score.txt")):
+        with open('score.txt', 'w') as f:
+            f.write("0")
 
     with open("score.txt", "r") as f:
         highscore = f.read()
